@@ -1,0 +1,139 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Bank Account Test Deposit
+      id: bank-account-test-deposit
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Bank Account Test Deposit
+        setup-command: ''
+        command: gradle test --tests BankAccountTest.depositTest
+        timeout: 10
+        max-score: 10
+    - name: Person Test Identity
+      id: person-test-identity
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Person Test Identity
+        setup-command: ''
+        command: gradle test --tests PersonTest.identityTest
+        timeout: 10
+        max-score: 10
+    - name: Shopping Cart Test Add Item
+      id: shopping-cart-test-add-item
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Shopping Cart Test Add Item
+        setup-command: ''
+        command: gradle test --tests ShoppingCartTest.addItemTest
+        timeout: 10
+        max-score: 10
+    - name: Bank Account test Withdraw
+      id: bank-account-test-withdraw
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Bank Account test Withdraw
+        setup-command: ''
+        command: gradle test --tests BankAccountTest.withdrawTest
+        timeout: 10
+        max-score: 10
+    - name: Bank Account Test Print Balance
+      id: bank-account-test-print-balance
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Bank Account Test Print Balance
+        setup-command: ''
+        command: gradle test --tests BankAccountTest.printBalanceTest
+        timeout: 10
+        max-score: 10
+    - name: Bank Account Test Transfer
+      id: bank-account-test-transfer
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Bank Account Test Transfer
+        setup-command: ''
+        command: gradle test --tests BankAccountTest.transferTest
+        timeout: 10
+        max-score: 10
+    - name: Bank Account Test Acount Details
+      id: bank-account-test-acount-details
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Bank Account Test Acount Details
+        setup-command: ''
+        command: gradle test --tests BankAccountTest.accountDetailsTest
+        timeout: 10
+        max-score: 10
+    - name: Shopping Cart test Remove item
+      id: shopping-cart-test-remove-item
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Shopping Cart test Remove item
+        setup-command: ''
+        command: gradle test --tests ShoppingCartTest.removeItemTest
+        timeout: 10
+        max-score: 10
+    - name: ShoppingCartTest.updateItemTest
+      id: shoppingcarttest-updateitemtest
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: ShoppingCartTest.updateItemTest
+        setup-command: ''
+        command: gradle test --tests ShoppingCartTest.updateItemTest
+        timeout: 10
+        max-score: 10
+    - name: gradle test --tests ShoppingCartTest.totalPriceCartTest
+      id: gradle-test-tests-shoppingcarttest-totalpricecarttest
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: gradle test --tests ShoppingCartTest.totalPriceCartTest
+        setup-command: ''
+        command: gradle test --tests ShoppingCartTest.totalPriceCartTest
+        timeout: 10
+        max-score: 10
+    - name: ShoppingCartTest.numberOfItemsCartTest
+      id: shoppingcarttest-numberofitemscarttest
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: ShoppingCartTest.numberOfItemsCartTest
+        setup-command: ''
+        command: gradle test --tests ShoppingCartTest.numberOfItemsCartTest
+        timeout: 10
+    - name: gradle test --tests ShoppingCartTest.seeAllItemsCartTest
+      id: gradle-test-tests-shoppingcarttest-seeallitemscarttest
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: gradle test --tests ShoppingCartTest.seeAllItemsCartTest
+        setup-command: ''
+        command: gradle test --tests ShoppingCartTest.seeAllItemsCartTest
+        timeout: 10
+        max-score: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        BANK-ACCOUNT-TEST-DEPOSIT_RESULTS: "${{steps.bank-account-test-deposit.outputs.result}}"
+        PERSON-TEST-IDENTITY_RESULTS: "${{steps.person-test-identity.outputs.result}}"
+        SHOPPING-CART-TEST-ADD-ITEM_RESULTS: "${{steps.shopping-cart-test-add-item.outputs.result}}"
+        BANK-ACCOUNT-TEST-WITHDRAW_RESULTS: "${{steps.bank-account-test-withdraw.outputs.result}}"
+        BANK-ACCOUNT-TEST-PRINT-BALANCE_RESULTS: "${{steps.bank-account-test-print-balance.outputs.result}}"
+        BANK-ACCOUNT-TEST-TRANSFER_RESULTS: "${{steps.bank-account-test-transfer.outputs.result}}"
+        BANK-ACCOUNT-TEST-ACOUNT-DETAILS_RESULTS: "${{steps.bank-account-test-acount-details.outputs.result}}"
+        SHOPPING-CART-TEST-REMOVE-ITEM_RESULTS: "${{steps.shopping-cart-test-remove-item.outputs.result}}"
+        SHOPPINGCARTTEST-UPDATEITEMTEST_RESULTS: "${{steps.shoppingcarttest-updateitemtest.outputs.result}}"
+        GRADLE-TEST-TESTS-SHOPPINGCARTTEST-TOTALPRICECARTTEST_RESULTS: "${{steps.gradle-test-tests-shoppingcarttest-totalpricecarttest.outputs.result}}"
+        SHOPPINGCARTTEST-NUMBEROFITEMSCARTTEST_RESULTS: "${{steps.shoppingcarttest-numberofitemscarttest.outputs.result}}"
+        GRADLE-TEST-TESTS-SHOPPINGCARTTEST-SEEALLITEMSCARTTEST_RESULTS: "${{steps.gradle-test-tests-shoppingcarttest-seeallitemscarttest.outputs.result}}"
+      with:
+        runners: bank-account-test-deposit,person-test-identity,shopping-cart-test-add-item,bank-account-test-withdraw,bank-account-test-print-balance,bank-account-test-transfer,bank-account-test-acount-details,shopping-cart-test-remove-item,shoppingcarttest-updateitemtest,gradle-test-tests-shoppingcarttest-totalpricecarttest,shoppingcarttest-numberofitemscarttest,gradle-test-tests-shoppingcarttest-seeallitemscarttest
